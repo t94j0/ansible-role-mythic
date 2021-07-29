@@ -1,7 +1,8 @@
 Mythic
 =========
 
-![t94j0.mythic](https://img.shields.io/ansible/role/55834)
+[![t94j0.mythic](https://img.shields.io/ansible/role/55834)](https://galaxy.ansible.com/t94j0/mythic)
+
 
 Install Mythic
 
