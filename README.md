@@ -1,6 +1,8 @@
 Mythic
 =========
 
+![t94j0.mythic](https://img.shields.io/ansible/role/55834)
+
 Install Mythic
 
 Role Variables
