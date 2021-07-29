@@ -55,4 +55,4 @@ BSD
 Author Information
 ------------------
 
-Max Harley <mharley@specterops.io>
+Max Harley <mharley specterops io>
