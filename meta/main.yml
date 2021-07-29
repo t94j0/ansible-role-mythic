@@ -1,0 +1,27 @@
+galaxy_info:
+  role_name: mythic
+  namespace: t94j0
+  author: Max Harley
+  description: Installs Mythic teamserver
+  company: SpecterOps
+
+  issue_tracker_url: https://github.com/t94j0/ansible-role-mythic/issues
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Debian
+    versions:
+    - 10
+
+  galaxy_tags:
+    - security
+    - mythic
+    - c2
+    - hacking
+
+dependencies:
+  - geerlingguy.docker
+  - geerlingguy.pip

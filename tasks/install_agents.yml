@@ -1,0 +1,10 @@
+- name: Assert mandatory variables
+  assert:
+    that:
+      - agent is defined
+      - installation_path
+
+- name: Install Agent
+  command: "./mythic-cli install github {{ agent.repo }} {{ agent.branch }} -f"
+  args:
+    chdir: "{{ installation_path }}"

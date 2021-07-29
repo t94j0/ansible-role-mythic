@@ -1,0 +1,11 @@
+---
+mythic_repo: https://github.com/its-a-feature/Mythic
+mythic_version: master
+installation_path: /opt/mythic
+server_header: nginx 1.2
+admin_username: admin_username
+default_password: default_password
+operation_name: operation_name
+agents:
+    - repo: https://github.com/MythicAgents/Apollo
+      branch: master

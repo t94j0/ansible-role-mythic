@@ -1,0 +1,62 @@
+---
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Install Docker
+  include_role:
+    name: geerlingguy.docker
+
+- name: Install Pip
+  include_role:
+    name: geerlingguy.pip
+
+- name: Install pydocker
+  pip:
+    name: docker
+
+- name: Download Mythic
+  ansible.builtin.git:
+    repo: "{{ mythic_repo }}"
+    dest: "{{ installation_path }}"
+    version: "{{ mythic_version }}"
+
+- name: Check for mythic config
+  stat:
+    path: "{{ installation_path }}/.env"
+  register: env_stat
+
+- name: Create mythic config
+  shell: ./mythic-cli config > .env
+  args:
+    chdir: "{{ installation_path }}"
+  when: not env_stat.stat.exists
+
+- name: Configure Mythic | Set variables
+  lineinfile:
+    path: "{{ installation_path }}/.env"
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }}={{ item.value }}"
+  with_dict:
+    SERVER_HEADER: "{{ server_header }}"
+    MYTHIC_ADMIN_USER: "{{ admin_username }}"
+    MYTHIC_ADMIN_PASSWORD: "{{ default_password }}"
+    DEFAULT_OPERATION_NAME: "{{ operation_name }}"
+  no_log: true
+
+- name: Get Mythic container info
+  docker_container_info:
+    name: mythic_server
+  register: mythic_result
+
+- name: Start Mythic
+  command: ./mythic-cli mythic start
+  args:
+    chdir: "{{ installation_path }}"
+  when: not mythic_result.exists
+
+- name: Install Agents
+  include_tasks: install_agents.yml
+  vars:
+    agent: "{{ item }}"
+  loop: "{{ agents }}"
